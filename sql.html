@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML LANG=en>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+<HEAD><TITLE>SQL Challenges Game</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/JavaScript" src="sql.js"></script>
+<script type="text/JavaScript">
+
+var thispage = "sql.htm";
+var qnum=1;
+var qshuffle = new Array(1);
+var numcorrect = 0;
+var numneeded = 15;
+var n = question.length;
+
+// qshuffle starts out with all the questions in order
+for (i=1; i<=n; i++) {
+  qshuffle[i]=i;
+  }
+var timer;
+
+function shuffleQuestions()
+{
+  for (i=1; i<=n; i++) {
+    a = Math.floor((n-1)*Math.random()+1);
+    b = Math.floor((n-1)*Math.random()+1);
+    temp = qshuffle[a];
+	  qshuffle[a]=qshuffle[b];
+    qshuffle[b]=temp;
+          }
+}
+
+function shuffleAnswers()
+{
+  // now flip a random pair n times
+  for (i=1; i<n; i++) {
+	  answer[i][0] = answer[i][1]; // record correct answer
+	  for (j=1; j<=5; j++) {       // flip answers 5 times
+     a = Math.floor(5*Math.random()+1);
+     b = Math.floor(5*Math.random()+1);
+     temp = answer[i][a];
+	   answer[i][a]=answer[i][b];
+     answer[i][b]=temp;
+     }
+	}
+}
+
+function start()
+{
+// Restarts with random questions
+qnum=1;
+shuffleQuestions();
+shuffleAnswers();
+showQuestionInBox(qshuffle[qnum]);
+}
+
+function showQuestionInBox(qn)
+{
+ var qi = question[qn];
+ document.getElementById('questionDiv').innerHTML=qi;
+ document.getElementById('counterDiv').innerHTML=numcorrect + " Correct";
+ document.getElementById('ADiv').innerHTML=answer[qn][1];
+ document.getElementById('BDiv').innerHTML=answer[qn][2];
+ document.getElementById('CDiv').innerHTML=answer[qn][3];
+ document.getElementById('DDiv').innerHTML=answer[qn][4];
+ document.getElementById('EDiv').innerHTML=answer[qn][5];
+ timer = setInterval(showNextQuestion, 60000);
+}
+
+function showCounter()
+{
+ document.getElementById('counterDiv').innerHTML=(qnum+1)+'/'+n;
+}
+
+function showNextQuestion()
+{
+  qnum++;
+  if (qnum >= n) { qnum = 1; }
+	showQuestionInBox(qshuffle[qnum]);
+}
+
+function showWin()
+{
+   document.getElementById('counterDiv').innerHTML="<b><big>WINNER; Shout: BACON!!!</b></big>";
+}
+
+function press(pn)
+{
+  clearInterval(timer)
+  if (answer[qshuffle[qnum]][pn] == answer[qshuffle[qnum]][0]) {
+	  numcorrect = numcorrect+1;
+	  if (numcorrect >= numneeded) { showWin(); } else { showNextQuestion(); }
+		}
+	else {
+	 	numcorrect=0;
+		document.write("<h2>Incorrect!</h2>");
+	  document.write("<h2>The Question was: </h2>");
+	  document.write("<h2>" + question[qshuffle[qnum]] + "</h2>");
+	  document.write("<h2>Your Answer: " +  answer[qshuffle[qnum]][pn] + "</h2>");
+	  document.write("<h2>Correct Answer: " +  answer[qshuffle[qnum]][0] + "</h2>");
+	  document.write("<h2><a href='javascript:window.location=\"" + thispage + "\"'>Click Here to Try Again</a></h2>");
+    }
+}
+</script>
+</HEAD>
+
+<body text="#000000" bgcolor="#ffffff" onLoad=start();  style="font-family:Arial">
+<h1>SQL Challenges Game</h1>
+<div id="questionDiv" name="qDiv"
+  style="width:60%;
+	padding: 10px; background-color:'#000000'; color:'#000000'; font-size: 16pt;">
+</div><br>
+
+<form name="formName">
+<table border=1">
+<tr>
+<td align="center">
+  <input type="button" name="AButton" onClick="press(1);" value="     "><br>
+ <div  id="ADiv" name="ADiv"
+  style="padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div></td>
+
+<td align="center">
+  <input type="button" name="BButton" onClick="press(2); " value="     "><br>
+ <div  id="BDiv" name="BDiv"
+  style="padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div></td>
+
+<td align="center">
+  <input type="button" name="CButton" onClick="press(3); " value="     "><br>
+ <div  id="CDiv" name="CDiv"
+  style="padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div></td>
+
+<td align="center">
+  <input type="button" name="DButton" onClick="press(4); " value="     "><br>
+ <div  id="DDiv" name="DDiv"
+  style="padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div></td>
+
+<td align="center">
+  <input type="button" name="EButton" onClick="press(5); " value="     "><br>
+ <div  id="EDiv" name="EDiv"
+  style="padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div></td>
+</tr>
+</table>
+</form>
+<p>     
+  <div  id="counterDiv" name="counterDiv"
+  style="height:27; width:400; border:2px solid red; padding: 5px; background-color:'#000000';
+	color:'#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
+  </div>
+<p>
+</body>
+</html>
+
