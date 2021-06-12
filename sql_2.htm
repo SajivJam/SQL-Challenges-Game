@@ -126,49 +126,56 @@ function press(pn)
     }
 }
 </script>
+<style>
+  .centered {
+    max-width: 960px;
+    margin: auto;
+  }
+</style>
 </HEAD>
 
 <body text="#000000" bgcolor="#ffffff" onLoad=start();  style="font-family:Arial">
-<h1>SQL Challenges Game</h1>
-<div id="questionDiv" name="qDiv"
-  style= width:60%;
+<h1 class="centered" style="text-align: center">SQL Challenges Game</h1>
+<div id="questionDiv" name="qDiv" class="centered"
+  style= width:60%; text-align: center;
 	padding: 10px; backgroundColor='#000000'; color='#000000'; font-size: 16pt;">
-</div><br>
-
+</div>
+<br>
+<center>
 <form name="formName">
 <table border=1">
 <tr>
 <td align="center">
   <input type="button" name="AButton" onClick="press(1);" value="     "><br>
- <div  id="ADiv" name="ADiv"
+ <div  id="ADiv" name="ADiv" class="centered"
   style="padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div></td>
 
 <td align="center">
   <input type="button" name="BButton" onClick="press(2); " value="     "><br>
- <div  id="BDiv" name="BDiv"
+ <div  id="BDiv" name="BDiv" class="centered"
   style="padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div></td>
 
 <td align="center">
   <input type="button" name="CButton" onClick="press(3); " value="     "><br>
- <div  id="CDiv" name="CDiv"
+ <div  id="CDiv" name="CDiv" class="centered"
   style="padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div></td>
 
 <td align="center">
   <input type="button" name="DButton" onClick="press(4); " value="     "><br>
- <div  id="DDiv" name="DDiv"
+ <div  id="DDiv" name="DDiv" class="centered"
   style="padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div></td>
 
 <td align="center">
   <input type="button" name="EButton" onClick="press(5); " value="     "><br>
- <div  id="EDiv" name="EDiv"
+ <div  id="EDiv" name="EDiv" class="centered"
   style="padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div></td>
@@ -176,17 +183,18 @@ function press(pn)
 </table>
 </form>
 <p>
-  <div  id="counterDiv" name="counterDiv"
+  <div  id="counterDiv" name="counterDiv" class="centered"
   style="height:27; width:400; border:2px solid red; padding: 5px; backgroundColor='#000000';
 	color='#000000'; font-size: 16pt; text-align: center; vertical-align: middle; line-height: 1;">
   </div>
 <p>
 
-  <div>
+  <div class="centered">
     <h2>Time Remaining: </h2>
     <span class="timer">
       <span id="counter"></span>
     </span>
   </div>
+</center>
 </body>
 </html>
